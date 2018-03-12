@@ -23,29 +23,31 @@ public class SpringUebungApplication {
 		SpringApplication.run(SpringUebungApplication.class);
 
 	}
-	
+
 	@Bean
 	public CommandLineRunner demo(MitarbeiterService service) {
-		LOG.info("Demo INIT");
-		
+
 		return (args) -> {
-			
-			//service.insert(new Mitarbeiter("paco", "francisco", 32));
-			
+			LOG.info("*********************");
+			LOG.info("**** DEMO - INIT ****");
+
+			// service.insert(new Mitarbeiter("paco", "francisco", 32));
+
 			List<Mitarbeiter> arbeiterList = service.getAll();
 
 			arbeiterList.forEach(a -> LOG.info(
 					MessageFormat.format("{0}, username: {1}, age {2}", a.getName(), a.getUsername(), a.getAge())));
-			
+
 			Optional<Mitarbeiter> mitarbeiterOpt2 = service.getById(2L);
 			Optional<Mitarbeiter> mitarbeiterOpt5 = service.getById(5L);
-			
+
 			LOG.info("Mitarbeiter con ID 2 es " + mitarbeiterOpt2.orElse(null));
 			LOG.info("Mitarbeiter con ID 5 es " + mitarbeiterOpt5.orElse(null));
-			arbeiterList.stream()
-				.filter(a -> a.getAge() > 27)
-				.forEach(a -> LOG.info("Mitarbeiters con edad > 27: " + a.getName()));
-			
+			arbeiterList.stream().filter(a -> a.getAge() > 27)
+					.forEach(a -> LOG.info("Mitarbeiters con edad > 27: " + a.getName()));
+
+			LOG.info("**** DEMO - END ****");
+			LOG.info("*********************");
 		};
 	}
 }

@@ -16,9 +16,9 @@ import es.wata.jalmansa.springuebung.repositories.MitarbeiterRepository;
 public class MitarbeiterService {
 
 	private static final Logger LOG = LoggerFactory.getLogger(MitarbeiterService.class);
-	
+
 	private final String PATTERN = "Finding Mitarbeiter by {0} {1}";
-	
+
 	@Autowired
 	private MitarbeiterRepository repo;
 
@@ -26,21 +26,22 @@ public class MitarbeiterService {
 		LOG.info("Finding all mitarbeiters in DB");
 		return repo.findAll();
 	}
-	
-	public void insert(Mitarbeiter mitarbeiter) {
-		LOG.info("Saving Mitarbeiter in DB");
-		repo.save(mitarbeiter);
+
+	public Optional<Mitarbeiter> insert(Mitarbeiter mitarbeiter) {
+		LOG.info("Saving Mitarbeiter in DB: " + mitarbeiter);
+		return Optional.of(repo.save(mitarbeiter));
 	}
-	
+
 	public Optional<Mitarbeiter> getById(Long id) {
 		LOG.info(MessageFormat.format(PATTERN, "id", id));
-		
+
 		return repo.findById(id);
 	}
+
 	public Optional<Mitarbeiter> getByName(String name) {
 		LOG.info(MessageFormat.format(PATTERN, "name", name));
-		
+
 		return repo.findByName(name);
 	}
-	
+
 }
