@@ -13,7 +13,7 @@
 <!-- 		<appender-ref ref="STDOUT" /> -->
 <!-- 	</logger> -->
 
-	<logger name="es.wata.jalmansa" level="debug" additivity="false">
+	<logger name="es.wata.jalmansa" level="" additivity="false">
 		<appender-ref ref="STDOUT" />
 	</logger>
 

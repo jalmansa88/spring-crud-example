@@ -27,8 +27,11 @@ public class MitarbeiterService {
 		return repo.findAll();
 	}
 
-	public Optional<Mitarbeiter> insert(Mitarbeiter mitarbeiter) {
+	public Optional<Mitarbeiter> insert(Mitarbeiter mitarbeiter) throws Exception {
 		LOG.info("Saving Mitarbeiter in DB: " + mitarbeiter);
+		if(getByUsername(mitarbeiter.getUsername()).isPresent())
+			throw new Exception("Username already exists");
+		
 		return Optional.of(repo.save(mitarbeiter));
 	}
 
@@ -42,6 +45,11 @@ public class MitarbeiterService {
 		LOG.info(MessageFormat.format(PATTERN, "name", name));
 
 		return repo.findByName(name);
+	}
+	public Optional<Mitarbeiter> getByUsername(String username) {
+		LOG.info(MessageFormat.format(PATTERN, "username", username));
+		
+		return repo.findByUsername(username);
 	}
 
 }

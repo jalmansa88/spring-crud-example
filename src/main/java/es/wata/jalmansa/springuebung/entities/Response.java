@@ -1,15 +1,32 @@
 package es.wata.jalmansa.springuebung.entities;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class Response {
-	private List<Mitarbeiter> mitarbeiter;
-	private String message;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-	public Response(List<Mitarbeiter> mitarbeiter, String msg) {
+public class Response {
+	@JsonProperty("content")
+	private List<Mitarbeiter> mitarbeiter;
+
+	private ErrorResponse errorResponse;
+
+	public Response(List<Mitarbeiter> mitarbeiter) {
 		super();
 		this.mitarbeiter = mitarbeiter;
-		this.message = msg;
+		this.errorResponse = new ErrorResponse();
+	}
+	
+	public Response(ErrorResponse errorResponse) {
+		super();
+		this.mitarbeiter = new ArrayList<>();
+		this.errorResponse = errorResponse;
+	}
+
+	public Response(List<Mitarbeiter> mitarbeiter, ErrorResponse errorResponse) {
+		super();
+		this.mitarbeiter = mitarbeiter;
+		this.errorResponse = errorResponse;
 	}
 
 	public List<Mitarbeiter> getMitarbeiter() {
@@ -20,11 +37,11 @@ public class Response {
 		this.mitarbeiter = mitarbeiter;
 	}
 
-	public String getMessage() {
-		return message;
+	public ErrorResponse getErrorResponse() {
+		return errorResponse;
 	}
 
-	public void setMessage(String message) {
-		this.message = message;
+	public void setErrorResponse(ErrorResponse message) {
+		this.errorResponse = message;
 	}
 }
