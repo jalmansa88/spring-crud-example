@@ -16,4 +16,6 @@ public interface MitarbeiterRepository extends JpaRepository<Mitarbeiter, Long> 
 	Optional<Mitarbeiter> findByName(String name);
 
 	Optional<Mitarbeiter> findById(Long id);
+	
+	void removeByUsername(String username);
 }

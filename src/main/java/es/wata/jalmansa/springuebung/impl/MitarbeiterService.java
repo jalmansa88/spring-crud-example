@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.wata.jalmansa.springuebung.entities.Mitarbeiter;
+import es.wata.jalmansa.springuebung.exceptions.MitarbeiterServiceException;
 import es.wata.jalmansa.springuebung.repositories.MitarbeiterRepository;
 
 @Service
@@ -18,7 +19,7 @@ public class MitarbeiterService {
 	private static final Logger LOG = LoggerFactory.getLogger(MitarbeiterService.class);
 
 	private final String PATTERN = "Finding Mitarbeiter by {0} {1}";
-
+	
 	@Autowired
 	private MitarbeiterRepository repo;
 
@@ -27,10 +28,10 @@ public class MitarbeiterService {
 		return repo.findAll();
 	}
 
-	public Optional<Mitarbeiter> insert(Mitarbeiter mitarbeiter) throws Exception {
-		LOG.info("Saving Mitarbeiter in DB: " + mitarbeiter);
+	public Optional<Mitarbeiter> insert(Mitarbeiter mitarbeiter) throws MitarbeiterServiceException {
+		LOG.info(MessageFormat.format("Saving Mitarbeiter in DB: {0}", mitarbeiter));
 		if(getByUsername(mitarbeiter.getUsername()).isPresent())
-			throw new Exception("Username already exists");
+			throw new MitarbeiterServiceException(1, "Mitarbeiter schon benutzen");
 		
 		return Optional.of(repo.save(mitarbeiter));
 	}
@@ -50,6 +51,16 @@ public class MitarbeiterService {
 		LOG.info(MessageFormat.format(PATTERN, "username", username));
 		
 		return repo.findByUsername(username);
+	}
+	
+	public void delete(String username) throws Exception {
+		LOG.info("Removing Mitarbeiter " + username + " from Database");
+		
+		if(!getByUsername(username).isPresent())
+			throw new Exception("Username does no exist!");
+		
+		
+		repo.removeByUsername(username);
 	}
 
 }
