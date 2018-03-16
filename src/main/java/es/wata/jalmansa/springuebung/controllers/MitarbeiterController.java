@@ -16,10 +16,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.wata.jalmansa.springuebung.entities.ApiResponse;
 import es.wata.jalmansa.springuebung.entities.Mitarbeiter;
-import es.wata.jalmansa.springuebung.exceptions.MitarbeiterServiceException;
-import es.wata.jalmansa.springuebung.impl.MitarbeiterService;
+import es.wata.jalmansa.springuebung.exceptions.ServiceException;
+import es.wata.jalmansa.springuebung.response.ApiResponse;
+import es.wata.jalmansa.springuebung.services.MitarbeiterService;
 import es.wata.jalmansa.springuebung.utils.ApiCodes;
 
 @RestController
@@ -53,7 +53,7 @@ public class MitarbeiterController {
 		Optional<Mitarbeiter> optional = service.getByUsername(username);
 
 		if (!optional.isPresent()) {
-			LOG.info("nicht gefunden");
+			LOG.info("Mitarbeitetr " + username + " nicht gefunden");
 			return ResponseEntity.status(HttpStatus.NO_CONTENT).body(new ApiResponse(ApiCodes.E700));
 		}
 
@@ -66,7 +66,7 @@ public class MitarbeiterController {
 
 		try {
 			added = service.insert(newMitarbeiter).orElse(null);
-		} catch (MitarbeiterServiceException e) {
+		} catch (ServiceException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(ApiCodes.E701));
 		}
 
@@ -78,7 +78,7 @@ public class MitarbeiterController {
 
 		try {
 			service.delete(username);
-		} catch (Exception e) {
+		} catch (ServiceException e) {
 			return ResponseEntity.status(HttpStatus.CONFLICT).body(new ApiResponse(ApiCodes.E700));
 		}
 

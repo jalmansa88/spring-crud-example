@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
-import es.wata.jalmansa.springuebung.entities.ApiResponse;
+import es.wata.jalmansa.springuebung.response.ApiResponse;
 import es.wata.jalmansa.springuebung.utils.ApiCodes;
 
 @ControllerAdvice

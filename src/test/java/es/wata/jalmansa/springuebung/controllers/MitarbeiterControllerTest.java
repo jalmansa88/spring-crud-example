@@ -19,7 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
 import es.wata.jalmansa.springuebung.ApplicationConfigurationContext;
-import es.wata.jalmansa.springuebung.impl.MitarbeiterService;
+import es.wata.jalmansa.springuebung.services.MitarbeiterService;
 
 @WebAppConfiguration
 @RunWith(SpringJUnit4ClassRunner.class)

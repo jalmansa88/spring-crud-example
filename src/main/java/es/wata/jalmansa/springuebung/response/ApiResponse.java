@@ -1,4 +1,4 @@
-package es.wata.jalmansa.springuebung.entities;
+package es.wata.jalmansa.springuebung.response;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -9,41 +9,41 @@ import es.wata.jalmansa.springuebung.utils.ApiCodes;
 
 public class ApiResponse {
 	@JsonProperty("ApiContent")
-	private List<Mitarbeiter> mitarbeiter;
+	private List<?> content;
 	
 	@JsonProperty("ApiResult")
 	private CodeResponse codeResponse;
 	
 	public ApiResponse() {
 		super();
-		this.mitarbeiter = new ArrayList<>();
+		this.content = new ArrayList<>();
 		this.codeResponse = new CodeResponse();
 	}
 	
-	public ApiResponse(List<Mitarbeiter> mitarbeiter) {
+	public ApiResponse(List<?> content) {
 		super();
-		this.mitarbeiter = mitarbeiter;
+		this.content = content;
 		this.codeResponse = new CodeResponse();
 	}
 	
 	public ApiResponse(ApiCodes apiCode) {
 		super();
-		this.mitarbeiter = new ArrayList<>();
+		this.content = new ArrayList<>();
 		this.codeResponse = new CodeResponse(apiCode);
 	}
 
-	public ApiResponse(List<Mitarbeiter> mitarbeiter, ApiCodes apiCode) {
+	public ApiResponse(List<?> mitarbeiter, ApiCodes apiCode) {
 		super();
-		this.mitarbeiter = mitarbeiter;
+		this.content = mitarbeiter;
 		this.codeResponse = new CodeResponse(apiCode);
 	}
 
-	public List<Mitarbeiter> getMitarbeiter() {
-		return mitarbeiter;
+	public List<?> getContent() {
+		return content;
 	}
 
-	public void setMitarbeiter(List<Mitarbeiter> mitarbeiter) {
-		this.mitarbeiter = mitarbeiter;
+	public void setConten(List<?> content) {
+		this.content = content;
 	}
 
 	public CodeResponse getCodeResponse() {

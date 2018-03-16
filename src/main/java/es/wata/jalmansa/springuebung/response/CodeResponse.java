@@ -1,4 +1,4 @@
-package es.wata.jalmansa.springuebung.entities;
+package es.wata.jalmansa.springuebung.response;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;

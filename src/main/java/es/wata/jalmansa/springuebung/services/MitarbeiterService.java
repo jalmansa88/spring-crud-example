@@ -1,4 +1,4 @@
-package es.wata.jalmansa.springuebung.impl;
+package es.wata.jalmansa.springuebung.services;
 
 import java.text.MessageFormat;
 import java.util.List;
@@ -10,7 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.wata.jalmansa.springuebung.entities.Mitarbeiter;
-import es.wata.jalmansa.springuebung.exceptions.MitarbeiterServiceException;
+import es.wata.jalmansa.springuebung.exceptions.ServiceException;
 import es.wata.jalmansa.springuebung.repositories.MitarbeiterRepository;
 
 @Service
@@ -28,10 +28,10 @@ public class MitarbeiterService {
 		return repo.findAll();
 	}
 
-	public Optional<Mitarbeiter> insert(Mitarbeiter mitarbeiter) throws MitarbeiterServiceException {
+	public Optional<Mitarbeiter> insert(Mitarbeiter mitarbeiter) throws ServiceException {
 		LOG.info(MessageFormat.format("Saving Mitarbeiter in DB: {0}", mitarbeiter));
 		if(getByUsername(mitarbeiter.getUsername()).isPresent())
-			throw new MitarbeiterServiceException(1, "Mitarbeiter schon benutzen");
+			throw new ServiceException(1, "Mitarbeiter schon benutzen");
 		
 		return Optional.of(repo.save(mitarbeiter));
 	}
@@ -53,11 +53,11 @@ public class MitarbeiterService {
 		return repo.findByUsername(username);
 	}
 	
-	public void delete(String username) throws Exception {
+	public void delete(String username) throws ServiceException {
 		LOG.info("Removing Mitarbeiter " + username + " from Database");
 		
 		if(!getByUsername(username).isPresent())
-			throw new Exception("Username does no exist!");
+			throw new ServiceException(10, "Username does no exist!");
 		
 		
 		repo.removeByUsername(username);

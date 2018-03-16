@@ -1,17 +1,17 @@
 package es.wata.jalmansa.springuebung.exceptions;
 
-public class MitarbeiterServiceException extends Exception {
+public class ServiceException extends Exception {
 
 	private static final long serialVersionUID = 4330076778983700200L;
 
 	private Integer exceptionCode;
 	
-	public MitarbeiterServiceException(Integer exceptionCode) {
+	public ServiceException(Integer exceptionCode) {
 		super();
 		this.exceptionCode = exceptionCode;
 	}
 	
-	public MitarbeiterServiceException(Integer exceptionCode, String message) {
+	public ServiceException(Integer exceptionCode, String message) {
 		super(message);
 		this.exceptionCode = exceptionCode;
 	}
