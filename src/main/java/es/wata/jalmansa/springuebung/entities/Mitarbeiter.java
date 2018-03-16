@@ -4,6 +4,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Mitarbeiter {
@@ -15,23 +17,29 @@ public class Mitarbeiter {
 	private String name;
 	private Integer age;
 
+	@ManyToOne
+	@JoinColumn(name = "projekte_id", referencedColumnName = "id")
+	private Projekte projekte;
+	
 	public Mitarbeiter() {
 		super();
 	}
+	
+	public Mitarbeiter(String username, String name, Integer age, Projekte projekte) {
+		super();
+		this.username = username;
+		this.name = name;
+		this.age = age;
+		this.projekte = projekte;
+	}
 
-	public Mitarbeiter(Long id, String username, String name, Integer age) {
+	public Mitarbeiter(Long id, String username, String name, Integer age, Projekte projekte) {
 		super();
 		this.id = id;
 		this.username = username;
 		this.name = name;
 		this.age = age;
-	}
-	
-	public Mitarbeiter(String username, String name, int age) {
-		super();
-		this.username = username;
-		this.name = name;
-		this.age = age;
+		this.projekte = projekte;
 	}
 
 	public Long getId() {
@@ -58,12 +66,20 @@ public class Mitarbeiter {
 		this.name = name;
 	}
 
-	public int getAge() {
-		return age;
+	public Projekte getProjekte() {
+		return projekte;
 	}
 
-	public void setAge(int age) {
+	public void setProjekte(Projekte projekte) {
+		this.projekte = projekte;
+	}
+
+	public void setAge(Integer age) {
 		this.age = age;
+	}
+
+	public Integer getAge() {
+		return age;
 	}
 
 	@Override
@@ -73,6 +89,7 @@ public class Mitarbeiter {
 		result = prime * result + ((age == null) ? 0 : age.hashCode());
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + ((projekte == null) ? 0 : projekte.hashCode());
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -101,6 +118,11 @@ public class Mitarbeiter {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
+		if (projekte == null) {
+			if (other.projekte != null)
+				return false;
+		} else if (!projekte.equals(other.projekte))
+			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -111,7 +133,8 @@ public class Mitarbeiter {
 
 	@Override
 	public String toString() {
-		return "Mitarbeiter [id=" + id + ", username=" + username + ", name=" + name + ", age=" + age + "]";
+		return "Mitarbeiter [id=" + id + ", username=" + username + ", name=" + name + ", age=" + age + ", projekte="
+				+ projekte + "]";
 	}
 
 }
